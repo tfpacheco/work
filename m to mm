@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double metros;
+    cout << "Digite a medida em metros: ";
+    cin >> metros;
+
+    double milimetros = metros * 1000;
+    cout << "A medida em milimetros e: " << milimetros << " mm" << endl;
+
+    return 0;
+}
