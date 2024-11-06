@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double valorHora, horasTrabalhadas;
+
+    cout << "Digite o valor por hora do trabalhador: ";
+    cin >> valorHora;
+
+    cout << "Digite o numero de horas trabalhadas: ";
+    cin >> horasTrabalhadas;
+
+    double salarioBruto = valorHora * horasTrabalhadas;
+    double descontoIRS = salarioBruto * 0.125;
+    double salarioLiquido = salarioBruto - descontoIRS;
+
+    cout << "Salario bruto: " << salarioBruto << " euros" << endl;
+    cout << "Desconto IRS (12.5%): " << descontoIRS << " euros" << endl;
+    cout << "Salário liquido: " << salarioLiquido << " euros" << endl;
+
+    return 0;
+}
