@@ -10,11 +10,11 @@ int main() {
     cout << "Digite o numero de horas trabalhadas: ";
     cin >> horasTrabalhadas;
 
-    double salarioBruto = valorHora * horasTrabalhadas;
-    double descontoIRS = salarioBruto * 0.125;
-    double salarioLiquido = salarioBruto - descontoIRS;
+    double salarioTotal = valorHora * horasTrabalhadas;
+    double descontoIRS = salarioTotal * 0.125;
+    double salarioLiquido = salarioTotal - descontoIRS;
 
-    cout << "Salario bruto: " << salarioBruto << " euros" << endl;
+    cout << "Salario bruto: " << salarioTotal << " euros" << endl;
     cout << "Desconto IRS (12.5%): " << descontoIRS << " euros" << endl;
     cout << "Salário liquido: " << salarioLiquido << " euros" << endl;
 
