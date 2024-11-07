@@ -3,16 +3,16 @@ using namespace std;
 
 int main() {
     double raio;
-    const double PI = 3.14159; // Valor aproximado de π
+    const double PI = 3.1415;
 
-    cout << "Digite o raio do círculo: ";
+    cout << "Digite o raio do circulo: ";
     cin >> raio;
 
     double perimetro = 2 * PI * raio;
-    double area = PI * raio * raio; // Alternativa para pow(raio, 2)
+    double area = PI * raio * raio;
 
-    cout << "O perímetro do círculo é: " << perimetro << endl;
-    cout << "A área do círculo é: " << area << endl;
+    cout << "O perímetro do circulo e: " << perimetro << endl;
+    cout << "A area do circulo e: " << area << endl;
 
     return 0;
 }
