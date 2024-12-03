@@ -22,6 +22,7 @@ int main(){
         cout << "A letra e maior " << endl;
     }else{
         cout << "A letra e menor " << endl;
+break;
     }
     
     }
