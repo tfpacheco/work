@@ -18,11 +18,12 @@ int main(){
 
     if(letraA == letra){
         cout << "Parabens, acertaste! " << endl;
-    }else if (letraA > letra){
+        break;
+    }else if (letraA < letra){
         cout << "A letra e maior " << endl;
     }else{
         cout << "A letra e menor " << endl;
-break;
+
     }
     
     }
