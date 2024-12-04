@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main(){
+   
+    struct numeros
+    {
+        int num;
+        bool jaFoisorteado;
+    };
+    numeros painel[75];
+    for(int i = 0; i < 75; i++){
+        painel[i].num = i+1;
+        painel[i].jaFoisorteado = false;
+    }
+
+}
