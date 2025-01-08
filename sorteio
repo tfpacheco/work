@@ -9,9 +9,7 @@ int main(){
     string grupo2[4];
     bool usado[8] = {false};
     int aleatorio;
-
-    srand(time(0));
-
+srand(time(0));
 for(int i = 0; i < 4; i++){
     do{
         aleatorio = rand() % 8;
