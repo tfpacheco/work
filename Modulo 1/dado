@@ -1,0 +1,42 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+int main(){
+    int resposta;
+    int dado;
+    int aleatorio;
+    int i;
+    srand(time(0));
+    cout << "Pressione enter para lançar o dado";
+    cin.get();
+    aleatorio = rand() % 6 + 1;
+    cout << "Saiu o numero: " << aleatorio << endl;
+
+   switch(aleatorio){
+    case 1:
+    cout << "*" << endl;
+    break;
+    case 2:
+    cout << " *" << endl;
+    break;
+    case 3:
+    cout << "   *" << endl;
+    break;
+    case 4:
+    cout << "    *" << endl;
+    break;
+    case 5:
+    cout << "     *" << endl;
+    break;
+    case 6:
+    cout << "       *" << endl;
+    break;
+    default:
+    break;
+   }
+    }
+       
+       
+       
