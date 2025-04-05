@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main(){
+string equipa1;
+string equipa2;
+int golos1;
+int golos2;
+srand(time(0));
+cout << "Digite o nome da equipa: ";
+cin >> equipa1;
+cout << "Digite o nome da segunda equipa: ";
+cin >> equipa2;
+cout << "A equipa " << equipa1 << "ganhou com " << golos1 << endl;
+cout << "A equipa " << equipa2 << "ganhou com " << golos2 << endl;
+golos1 = rand() % 5;
+golos2 = rand() % 5;
+if(golos1 > golos2){
+    cout << "A equipa" << equipa1 << "ganhou o jogo com" << golos1;
+}else if(golos2 > golos1){
+    cout << "A equipa" << equipa2 << "ganhou o jogo com" << golos2;
+}else{
+    cout << "As equipa" << equipa1 << "e a equipa" << equipa2 << "empataram com" << golos1 << golos2;
+}
+}
