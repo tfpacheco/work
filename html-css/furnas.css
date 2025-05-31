@@ -1,0 +1,12 @@
+body{
+    background-color: #1edf85;
+}
+img{
+    width: 1000px;
+    border: #000000;
+    border-radius: 20%;
+}
+h1{
+    font-family: Arial;
+    color: aliceblue;
+}
