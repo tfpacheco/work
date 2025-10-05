@@ -46,7 +46,7 @@ void players(string p1, string p2, string p3, string p4, int acao) {
     int voto;
     cin >> voto;
 
-    cout << "Você votou em: ";
+    cout << "Votaste em: ";
     switch (voto) {
         case 1: cout << p1 << endl; break;
         case 2: cout << p2 << endl; break;
@@ -90,5 +90,12 @@ int main() {
     players(player1, player2, player3, player4, impostor1);
 
     return 0;
+    string players = player1 + player2 + player3 + player4;;
+int voto;
+    if(players == 1){
+        cout << "Impostor venceu" << endl;
+    }else if(voto == impostor1){
+cout << "Os tripulantes venceram" << endl;
+    }
 }
 
