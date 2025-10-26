@@ -21,14 +21,10 @@ void criarJogadores(Player &p1, Player &p2) {
 }
 
 
-
-const int LINHAS = 3;
-const int COLUNAS = 3;
-
-void mostraGrelha(char tabuleiro[LINHAS][COLUNAS]) {
+void mostraGrelha(char tabuleiro[3][3]) {
     cout << endl;
-    for (int i = 0; i < LINHAS; i++) {
-        for (int j = 0; j < COLUNAS; j++) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
             cout << " " << tabuleiro[i][j];
             if (j < 2) cout << " [";
         }
@@ -39,12 +35,12 @@ void mostraGrelha(char tabuleiro[LINHAS][COLUNAS]) {
 }
 
 // Verifica vitória
-bool ganhou(char t[LINHAS][COLUNAS], char s) {
-    for (int i = 0; i < LINHAS; i++)
+bool ganhou(char t[3][3], char s) {
+    for (int i = 0; i < 3; i++)
         if (t[i][0] == s && t[i][1] == s && t[i][2] == s)
             return true;
 
-    for (int j = 0; j < COLUNAS; j++)
+    for (int j = 0; j < 3; j++)
         if (t[0][j] == s && t[1][j] == s && t[2][j] == s)
             return true;
 
@@ -60,9 +56,9 @@ int main() {
     Player p1, p2;
     criarJogadores(p1, p2);
 
-    char tabuleiro[LINHAS][COLUNAS];
-    for (int i = 0; i < LINHAS; i++)
-        for (int j = 0; j < COLUNAS; j++)
+    char tabuleiro[3][3];
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
             tabuleiro[i][j] = ' ';
 
     Player atual = p1;
@@ -109,4 +105,3 @@ int main() {
 
     return 0;
 }
-
