@@ -27,6 +27,7 @@ void fazGrelha(char t[3][3]) {
         cout << endl;
         if (i < 2) cout << "--- --- ---" << endl;
     }
+cout << endl;
 }
 
 
