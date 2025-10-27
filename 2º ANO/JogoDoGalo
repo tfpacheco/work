@@ -33,16 +33,18 @@ void fazGrelha(char t[3][3]) {
 bool ganhou(char t[3][3], char s) {
 
     for (int i = 0; i < 3; i++)
-    if ((t[i][0] == s && t[i][1] == s && t[i][2] == s) || (t[0][i] == s && t[1][i] == s && t[2][i] == s))
+    if ((t[i][0] == s && t[i][1] == s && t[i][2] == s) || (t[0][i] == s && t[1][i] == s && t[2][i] == s)){
         return true;
-
-    if ((t[0][0] == s && t[1][1] == s && t[2][2] == s) || (t[0][2] == s && t[1][1] == s && t[2][0] == s))
-        return true;
-
-    return false;
 }
 
+    if ((t[0][0] == s && t[1][1] == s && t[2][2] == s) || (t[0][2] == s && t[1][1] == s && t[2][0] == s)){
+        return true;
+}else{
+        return false;
+}
+}
 
+    
 
 int main() {
     Player p1, p2;
