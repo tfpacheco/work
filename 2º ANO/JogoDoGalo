@@ -87,10 +87,11 @@ int main() {
             cout << "Empate" << endl;
             fim = true;
         } else {
-            if (atual.nome == p1.nome)
+            if (atual.nome == p1.nome){
                 atual = p2;
-            else
+           } else{
                 atual = p1;
+           }
         }
     }
 }
