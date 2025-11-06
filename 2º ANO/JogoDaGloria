@@ -1,11 +1,3 @@
-//MAX: 30 casas
-//5 das 30 são especiais:
-  ."Perde a vez de jogar";
-  ."Retorna 3 casas";
-  ."Avançe 3 casas";
-  ."Jogar novamente";
-  ."Espera pela passagem do outro jogador";
-
 
 #include <iostream>
 #include <cstdlib>
