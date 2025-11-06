@@ -5,3 +5,89 @@
   ."Avançe 3 casas";
   ."Jogar novamente";
   ."Espera pela passagem do outro jogador";
+
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+//MAX: 30 casas
+//5 das 30 são especiais:
+/*
+."Perde a vez de jogar";
+."Retorna 3 casas";
+."Avançe 3 casas";
+."Jogar novamente";
+."Espera pela passagem do outro jogador";
+*/
+
+
+    const int MAX = 30;
+    const int ESPECIAIS[5] = {3, 9, 18, 21, 29};
+
+
+struct Players{
+    string nome;
+    int posicao;
+};
+
+void criarJogadores(Players &p1, Players &p2) {
+    cout << "Digite o nome do Jogador 1: ";
+    cin >> p1.nome;
+
+    cout << "Digite o nome do Jogador 2: ";
+    cin >> p2.nome;
+
+    p1.posicao = 0;
+    p1.posicao = 0;
+
+
+    int dado1 = rand()% 6 + 1; 
+    int dado2 = rand()% 6 + 1;
+
+    cout << "O jogador " << p1.nome << " tirou " << dado1;
+    cout << "O jogador " << p2.nome << " tirou " << dado2;
+
+    if(dado1 > dado2){
+        cout << p1.nome << " comeca a jogar";
+    }else{
+        cout << p2.nome << " comeca a jogar";
+    }
+}
+
+
+
+void jogada(Players &p){
+int dado = rand()% 6 + 1;
+cout << "O jogador " << p.nome << "jogou o dado e tirou " << dado << endl;
+p.posicao += dado;
+if(p.posicao >= MAX){
+    p.posicao = MAX;
+}
+}
+
+
+
+void criaTabuleiro(char t){
+    for(int i = 0; i < MAX; i++){
+        cout << " ";
+        if (i < MAX) {
+        cout << "|";
+        }
+    }
+}
+
+
+int main(){
+    Players p1, p2;
+    int turno = criarJogadores(p1, p2);
+    bool fim = false;
+    while (!fim) {
+        char t;
+    criaTabuleiro(t);
+        
+    }
+    }
+
+
