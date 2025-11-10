@@ -12,6 +12,8 @@ const string VERMELHO = "\033[31m";
 struct Player {
     string nome;
     int posicao;
+    bool perdeVez = false;
+    bool bloqueado = false;
 };
 
 bool ehEspecial(int pos) {
@@ -62,6 +64,7 @@ void verificarEspecial(Player &p) {
     switch (p.posicao) {
         case 3:
             cout << p.nome << " caiu na casa especial! Perde a próxima vez!" << endl;
+            p.perdeVez = true;
             break;
         case 9:
             cout << p.nome << " caiu na casa especial! Retorna 3 casas!" << endl;
@@ -77,6 +80,7 @@ void verificarEspecial(Player &p) {
             break;
         case 29:
             cout << p.nome << " deve esperar a passagem do outro jogador!" << endl;
+            p.bloqueado = true;
             break;
         default:
             break;
@@ -112,22 +116,45 @@ int main() {
         mostrarTabuleiro(p1, p2);
 
         if (turno == 1) {
-            jogada(p1);
-            verificarEspecial(p1);
-            if (p1.posicao >= MAX) {
-                cout << p1.nome << " venceu o jogo!\n";
-                fim = true;
+            // Jogador 1
+            if (p1.bloqueado && p2.posicao <= p1.posicao) {
+                cout << p1.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
+            } else if (p1.perdeVez) {
+                cout << p1.nome << " perdeu esta vez!" << endl;
+                p1.perdeVez = false;
+            } else {
+                jogada(p1);
+                verificarEspecial(p1);
+                if (p1.posicao >= MAX) {
+                    cout << p1.nome << " venceu o jogo!\n";
+                    fim = true;
+                }
             }
             turno = 2;
         } else {
-            jogada(p2);
-            verificarEspecial(p2);
-            if (p2.posicao >= MAX) {
-                cout << p2.nome << " venceu o jogo!\n";
-                fim = true;
+            // Jogador 2
+            if (p2.bloqueado && p1.posicao <= p2.posicao) {
+                cout << p2.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
+            } else if (p2.perdeVez) {
+                cout << p2.nome << " perdeu esta vez!" << endl;
+                p2.perdeVez = false;
+            } else {
+                jogada(p2);
+                verificarEspecial(p2);
+                if (p2.posicao >= MAX) {
+                    cout << p2.nome << " venceu o jogo!\n";
+                    fim = true;
+                }
             }
             turno = 1;
         }
+
+        // Se o jogador bloqueado já foi ultrapassado, desbloquear
+        if (p1.bloqueado && p2.posicao > p1.posicao)
+            p1.bloqueado = false;
+        if (p2.bloqueado && p1.posicao > p2.posicao)
+            p2.bloqueado = false;
+
         system("pause");
     }
 
