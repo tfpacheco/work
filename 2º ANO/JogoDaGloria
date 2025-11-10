@@ -6,7 +6,6 @@ using namespace std;
 const int MAX = 30;
 const int ESPECIAIS[5] = {3, 9, 18, 21, 29};
 
-// Códigos de cor ANSI
 const string RESET = "\033[0m";
 const string VERMELHO = "\033[31m";
 
