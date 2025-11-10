@@ -26,9 +26,11 @@ bool ehEspecial(int pos) {
 int criarJogadores(Player &p1, Player &p2) {
     cout << "Digite o nome do Jogador 1: ";
     cin >> p1.nome;
-
+    cout << endl;
+    
     cout << "Digite o nome do Jogador 2: ";
     cin >> p2.nome;
+    cout << endl;
 
     p1.posicao = 0;
     p2.posicao = 0;
@@ -42,9 +44,11 @@ int criarJogadores(Player &p1, Player &p2) {
     if (dado1 > dado2) {
         cout << p1.nome << " começa a jogar!" << endl;
         return 0;
+      
     } else {
         cout << p2.nome << " começa a jogar!" << endl;
         return 1;
+        
     }
 }
 
@@ -63,15 +67,15 @@ void jogada(Player &p) {
 void verificarEspecial(Player &p) {
     switch (p.posicao) {
         case 3:
-            cout << p.nome << " caiu na casa especial! Perde a próxima vez!" << endl;
+            cout << p.nome << " caiu na casa especial. Perde a proxima vez!" << endl;
             p.perdeVez = true;
             break;
         case 9:
-            cout << p.nome << " caiu na casa especial! Retorna 3 casas!" << endl;
+            cout << p.nome << " caiu na casa especial. Retorna 3 casas!" << endl;
             p.posicao -= 3;
             break;
         case 18:
-            cout << p.nome << " caiu na casa especial! Avança 3 casas!" << endl;
+            cout << p.nome << " caiu na casa especial. Avança 3 casas!" << endl;
             p.posicao += 3;
             break;
         case 21:
@@ -117,7 +121,7 @@ int main() {
 
         if (turno == 1) {
             if (p1.bloqueado && p2.posicao <= p1.posicao) {
-                cout << p1.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
+                cout << p1.nome << " ainda esta bloqueado e deve esperar o outro jogador passar!" << endl;
             } else if (p1.perdeVez) {
                 cout << p1.nome << " perdeu esta vez!" << endl;
                 p1.perdeVez = false;
@@ -125,7 +129,7 @@ int main() {
                 jogada(p1);
                 verificarEspecial(p1);
                 if (p1.posicao >= MAX) {
-                    cout << p1.nome << " venceu o jogo!\n";
+                    cout << p1.nome << " venceu o jogo!" << endl;
                     fim = true;
                 }
             }
@@ -140,7 +144,7 @@ int main() {
                 jogada(p2);
                 verificarEspecial(p2);
                 if (p2.posicao >= MAX) {
-                    cout << p2.nome << " venceu o jogo!\n";
+                    cout << p2.nome << " venceu o jogo!" << endl;
                     fim = true;
                 }
             }
