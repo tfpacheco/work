@@ -149,7 +149,6 @@ int main() {
             turno = 1;
         }
 
-        // Se o jogador bloqueado já foi ultrapassado, desbloquear
         if (p1.bloqueado && p2.posicao > p1.posicao)
             p1.bloqueado = false;
         if (p2.bloqueado && p1.posicao > p2.posicao)
