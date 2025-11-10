@@ -116,7 +116,6 @@ int main() {
         mostrarTabuleiro(p1, p2);
 
         if (turno == 1) {
-            // Jogador 1
             if (p1.bloqueado && p2.posicao <= p1.posicao) {
                 cout << p1.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
             } else if (p1.perdeVez) {
@@ -132,7 +131,6 @@ int main() {
             }
             turno = 2;
         } else {
-            // Jogador 2
             if (p2.bloqueado && p1.posicao <= p2.posicao) {
                 cout << p2.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
             } else if (p2.perdeVez) {
@@ -154,7 +152,7 @@ int main() {
         if (p2.bloqueado && p1.posicao > p2.posicao)
             p2.bloqueado = false;
 
-        system("pause");
+            cin.get();
     }
 
     return 0;
