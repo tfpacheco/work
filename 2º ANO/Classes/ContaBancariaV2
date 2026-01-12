@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class ContaBancaria {
+private:
+    string numeroDaConta;
+    string titular;
+    double saldo;
+
+public:
+    ContaBancaria(string num, string tit, double saldoInicial) {
+        numeroDaConta = num;
+        titular = tit;
+        saldo = saldoInicial;
+    }
+
+    void creditar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+        }
+    }
+
+    bool debitar(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+
+    void transferencia(double valor, ContaBancaria& outraConta) {
+        if (debitar(valor)) {
+            outraConta.creditar(valor);
+        }
+    }
+
+    string getNumero() {
+        return numeroDaConta;
+    }
+
+    string getTitular(){
+        return titular;
+    }
+
+    double getSaldo() {
+        return saldo;
+    }
+};
+
+int main() {
+    ContaBancaria c1("12345-6", "Joao Silva", 1000.0);
+    ContaBancaria c2("12378-7", "Jose Augusto", 200.0);
+
+    cout << "Conta: " << c1.getNumero() << endl;
+    cout << "Titular: " << c1.getTitular() << endl;
+    cout << "Saldo inicial: " << c1.getSaldo() << endl;
+
+
+    double valor;
+
+    cout << "Digite o valor a depositar: ";
+    if (cin >> valor) {
+        c1.creditar(valor);
+    }
+
+    cout << "Digite o valor a sacar: ";
+    if (cin >> valor) {
+        if (!c1.debitar(valor)) {
+            cout << "Saldo insuficiente ou valor inválido!" << endl;
+        }
+    }
+    cout << endl;
+    cout << "Conta a transferir: ";
+    cout << "Conta: " << c2.getNumero() << endl;
+    cout << "Titular: " << c2.getTitular() << endl;
+    cout << "Saldo inicial: " << c2.getSaldo() << endl;
+    cout << "Digite o valor a transferir para a conta " << c2.getNumero() << ": ";
+    if (cin >> valor) {
+        c1.transferencia(valor, c2);
+    }
+
+    cout << "saldo final: " << c1.getSaldo() << endl;
+     cout << "saldo final: " << c2.getSaldo() << endl;
+
+    return 0;
+}
