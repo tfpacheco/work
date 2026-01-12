@@ -1,1 +1,164 @@
 
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+const int MAX = 30;
+const int ESPECIAIS[5] = {3, 9, 18, 21, 29};
+
+const string RESET = "\033[0m";
+const string VERMELHO = "\033[31m";
+
+struct Player {
+    string nome;
+    int posicao;
+    bool perdeVez = false;
+    bool bloqueado = false;
+};
+
+bool ehEspecial(int pos) {
+    for (int i = 0; i < 5; i++) {
+        if (pos == ESPECIAIS[i]) return true;
+    }
+    return false;
+}
+
+int criarJogadores(Player &p1, Player &p2) {
+    cout << "Digite o nome do Jogador 1: ";
+    cin >> p1.nome;
+    cout << endl;
+    
+    cout << "Digite o nome do Jogador 2: ";
+    cin >> p2.nome;
+    cout << endl;
+
+    p1.posicao = 0;
+    p2.posicao = 0;
+
+    int dado1 = rand() % 6 + 1;
+    int dado2 = rand() % 6 + 1;
+
+    cout << "O jogador " << p1.nome << " tirou " << dado1 << endl;
+    cout << "O jogador " << p2.nome << " tirou " << dado2 << endl;
+
+    if (dado1 > dado2) {
+        cout << p1.nome << " começa a jogar!" << endl;
+        return 0;
+      
+    } else {
+        cout << p2.nome << " começa a jogar!" << endl;
+        return 1;
+        
+    }
+}
+
+void jogada(Player &p) {
+    int dado = rand() % 6 + 1;
+    cout << "O jogador " << p.nome << " jogou o dado e tirou " << dado << endl;
+    p.posicao += dado;
+
+    if (p.posicao >= MAX) {
+        p.posicao = MAX;
+    }
+
+    cout << p.nome << " está agora na casa " << p.posicao << endl;
+}
+
+void verificarEspecial(Player &p) {
+    switch (p.posicao) {
+        case 3:
+            cout << p.nome << " caiu na casa especial. Perde a proxima vez!" << endl;
+            p.perdeVez = true;
+            break;
+        case 9:
+            cout << p.nome << " caiu na casa especial. Retorna 3 casas!" << endl;
+            p.posicao -= 3;
+            break;
+        case 18:
+            cout << p.nome << " caiu na casa especial. Avança 3 casas!" << endl;
+            p.posicao += 3;
+            break;
+        case 21:
+            cout << p.nome << " ganhou uma jogada extra!" << endl;
+            jogada(p);
+            break;
+        case 29:
+            cout << p.nome << " deve esperar a passagem do outro jogador!" << endl;
+            p.bloqueado = true;
+            break;
+        default:
+            break;
+    }
+    if (p.posicao < 0) p.posicao = 0;
+    if (p.posicao > MAX) p.posicao = MAX;
+}
+
+void mostrarTabuleiro(const Player &p1, const Player &p2) {
+    cout << "Tabuleiro:";
+    for (int i = 0; i <= MAX; i++) {
+        if (i == p1.posicao && i == p2.posicao)
+            cout << "[X]";
+        else if (i == p1.posicao)
+            cout << "[1]";
+        else if (i == p2.posicao)
+            cout << "[2]";
+        else if (ehEspecial(i))
+            cout << VERMELHO << "[E]" << RESET;
+        else
+            cout << "[ ]";
+    }
+    cout << endl;
+}
+
+int main() {
+    srand(time(0));
+    Player p1, p2;
+    int turno = criarJogadores(p1, p2);
+    bool fim = false;
+
+    while (!fim) {
+        mostrarTabuleiro(p1, p2);
+
+        if (turno == 1) {
+            if (p1.bloqueado && p2.posicao <= p1.posicao) {
+                cout << p1.nome << " ainda esta bloqueado e deve esperar o outro jogador passar!" << endl;
+            } else if (p1.perdeVez) {
+                cout << p1.nome << " perdeu esta vez!" << endl;
+                p1.perdeVez = false;
+            } else {
+                jogada(p1);
+                verificarEspecial(p1);
+                if (p1.posicao >= MAX) {
+                    cout << p1.nome << " venceu o jogo!" << endl;
+                    fim = true;
+                }
+            }
+            turno = 2;
+        } else {
+            if (p2.bloqueado && p1.posicao <= p2.posicao) {
+                cout << p2.nome << " ainda está bloqueado e deve esperar o outro jogador passar!" << endl;
+            } else if (p2.perdeVez) {
+                cout << p2.nome << " perdeu esta vez!" << endl;
+                p2.perdeVez = false;
+            } else {
+                jogada(p2);
+                verificarEspecial(p2);
+                if (p2.posicao >= MAX) {
+                    cout << p2.nome << " venceu o jogo!" << endl;
+                    fim = true;
+                }
+            }
+            turno = 1;
+        }
+
+        if (p1.bloqueado && p2.posicao > p1.posicao)
+            p1.bloqueado = false;
+        if (p2.bloqueado && p1.posicao > p2.posicao)
+            p2.bloqueado = false;
+
+            cin.get();
+    }
+
+    return 0;
+}
