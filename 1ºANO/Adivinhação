@@ -1,1 +1,44 @@
 
+#include <iostream>
+using namespace std;
+
+int main() {
+    string frase = "eu tenho de aprender a programar";
+    string letrasUsadas = "";
+    string estado(frase.size(), '_');
+    char letra;
+    bool usada = false;
+
+    while (true) {
+        cout << "Frase: " << estado << endl;
+        cout << "Letras usadas: " << letrasUsadas << endl;
+        cout << "Digite uma letra: ";
+        cin >> letra;
+
+         usada = false;
+        for (char l : letrasUsadas) {
+            if (l == letra) {
+                usada = true;
+                break;
+            }
+        }
+    letrasUsadas += letra;
+
+      usada = false;
+        for (size_t i = 0; i < frase.size(); i++) {
+            if (frase[i] == letra) {
+                estado[i] = letra;
+                usada = true;
+            }
+        }
+
+         if (usada == false) {
+            cout << "Letra não encontrada!" << endl;
+        }
+        if (estado == frase) {
+            cout << "Parabéns! Você completou a frase: " << frase << endl;
+            break;
+        }
+    }
+}
+
