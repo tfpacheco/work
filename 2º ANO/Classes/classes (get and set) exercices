@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+class music{
+
+    private:
+    string artista;
+    string album;
+    string musicaMaisFamosa;
+
+    public:
+    music(string artista, string album, string musicaMaisFamosa){
+        this->artista = artista;
+        this->album = album;
+        this->musicaMaisFamosa = musicaMaisFamosa;
+    }
+    void mostrarInfo(){
+        cout << "Artista: " << artista << endl;
+        cout << "Album: " << album << endl;
+        cout << "Musica mais famosa: " << musicaMaisFamosa << endl;
+    }
+
+    string getArtist(){
+        return artista;
+    }
+
+    string getAlbum(){
+        return album;
+    }
+
+    string getMusicaMaisFamosa(){
+        return musicaMaisFamosa;
+    }
+
+    void setArtist(string artista){
+        this->artista = artista;
+    }
+
+    void setAlbum(string album){
+        this->album = album;
+    }
+
+    void setMusicaMaisFamosa(string musicaMaisFamosa){
+        this->musicaMaisFamosa = musicaMaisFamosa;
+    }
+
+    
+};
+
+int main(){
+    music m1("Eminem", "Recovery", "Love the way lou lie");
+    m1.mostrarInfo();
+
+    m1.setArtist("Juice Wrld");
+    m1.setAlbum("Armed and dangerous");
+    m1.setMusicaMaisFamosa("Lucid Dreams");
+
+    m1.mostrarInfo();
+
+    return 0;
+
+}
