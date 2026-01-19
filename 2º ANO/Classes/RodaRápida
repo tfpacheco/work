@@ -1,0 +1,117 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Veiculo {
+private:
+    string marca;
+    string modelo;
+    double combustivel; // Litros
+    double capacidadeTanque;
+    int numPassageiros;
+    double cargaMax;
+
+public:
+    Veiculo(const string& m, const string& mod, double cap, int passageiros = 0)
+        : marca(m), modelo(mod), combustivel(0), capacidadeTanque(cap), numPassageiros(passageiros) {}
+
+    string getDescricao() const {
+        return marca + " " + modelo;
+    }
+
+    int getPassageiros() const {
+        return numPassageiros;
+    }
+
+    void abastecer(double litros) {
+        if (litros <= 0) {
+            cout << "ERRO: Quantidade invalida.\n";
+            return;
+        }
+        if (combustivel + litros > capacidadeTanque) {
+            combustivel = capacidadeTanque;
+            cout << "Tanque cheio\n";
+        } else {
+            combustivel += litros;
+        }
+        cout << "Abastecido. Nivel atual: " << combustivel << "L\n";
+    }
+
+    virtual void mostrarDetalhes() const {
+        cout << "Veiculo: " << getDescricao() << " Combustivel: " << combustivel << "L\n";
+    }
+
+       
+    void gastarCombustivel(double valor) {
+        combustivel -= valor;
+        if (combustivel < 0) combustivel = 0;
+    }
+
+protected:
+    double getCombustivel() const { 
+        return combustivel;
+     }
+
+};
+
+class carro : public Veiculo {
+public:
+    carro(const string& m, const string& mod, double cap, int numPassageiros)
+        : Veiculo(m, mod, cap, numPassageiros) {}
+
+    void mostrarDetalhes() const{
+        cout << "Veiculo: " << getDescricao()
+             << "Combustivel: " << getCombustivel() << "L\n";
+        cout << "Numero de passageiros: " << getPassageiros() << endl;
+    }
+};
+
+class camiao : public Veiculo {
+public:
+    camiao(const string& m, const string& mod, double cap, int passageiros = 2)
+        : Veiculo(m, mod, cap, passageiros) {}
+
+
+    void viajar(double km) {
+        if (km <= 0) {
+            cout << "Distancia invalida.\n";
+            return;
+        }
+        double consumo = km * 0.5; 
+        double disponivel = getCombustivel();
+        if (consumo > disponivel) {
+            cout << "Combustivel insuficiente para " << km << " km. Necessario: "
+                 << consumo << "L, disponivel: " << disponivel << "L\n";
+            return;
+        }
+        gastarCombustivel(consumo);
+        cout << "Viagem de " << km << " km realizada. Combustivel restante: "
+             << getCombustivel() << "L\n";
+    }
+
+    void mostrarDetalhes() const {
+        cout << "Camiao: " << getDescricao()
+             << "Combustivel: " << getCombustivel() << "L\n";
+        cout << "Numero de passageiros: " << getPassageiros() << endl;
+    }
+};
+
+int main() {
+    carro c1("Nissan", "Skyline", 50, 5);
+    c1.abastecer(30);
+    c1.mostrarDetalhes();
+
+    camiao t1("BMW", "M4", 300);
+    t1.abastecer(150);
+    t1.viajar(200);
+    t1.mostrarDetalhes();
+
+    /*
+    ERRO
+    carro omeuCarro;
+    omeuCarro.combustivel = 100;
+    */
+
+
+    return 0;
+}
