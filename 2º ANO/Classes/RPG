@@ -1,0 +1,122 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Personagem {
+protected:
+    string nome;
+    int vida;
+    int vidaMaxima;
+
+public:
+    Personagem(string n, int v) : nome(n), vida(v), vidaMaxima(v) {}
+
+    string getNome() const { return nome; }
+    int getVida() const { return vida; }
+
+    bool estaVivo() const {
+        return vida > 0;
+    }
+
+    void receberDano(int dano) {
+        vida -= dano;
+        if (vida < 0) vida = 0;
+        cout << nome << " sofreu " << dano << " de dano! Vida restante: " << vida << endl;
+    }
+
+    virtual void atacar(Personagem& alvo) {
+        cout << nome << " fez um ataque basico." << endl;
+        alvo.receberDano(5);
+    }
+
+    virtual ~Personagem() {}
+};
+
+class Guerreiro : public Personagem {
+private:
+    int forca;
+
+public:
+    Guerreiro(string n, int v, int f)
+        : Personagem(n, v), forca(f) {}
+
+    void atacar(Personagem& alvo) {
+        cout << nome << " brande a espada com forca "  << forca << "!" << endl;
+        alvo.receberDano(this->forca);
+    }
+
+    void gritoDeGuerra() {
+        cout << nome << " grita: POR SPARTA!!" << endl;
+    }
+};
+
+class Mago : public Personagem {
+private:
+    int magia;
+
+public:
+    Mago(string n, int v, int m)
+        : Personagem(n, v), magia(m) {}
+
+    void atacar(Personagem& alvo) override {
+        cout << nome << " lança uma bola de fogo com poder "
+             << magia << "!" << endl;
+        alvo.receberDano(magia);
+    }
+
+    void curar() {
+        vida += 10;
+        if (vida > vidaMaxima) vida = vidaMaxima;
+        cout << nome << " se curou. Vida atual: "  << vida << endl;
+    }
+};
+
+class Assassino : public Personagem {
+private:
+    int furtividade;
+
+public:
+    Assassino(string n, int v, int f)
+        : Personagem(n, v), furtividade(f) {}
+
+    void atacar(Personagem& alvo) {
+        cout << nome << " ataca das sombras com furtividade "  << furtividade << "!" << endl;
+        alvo.receberDano(furtividade);
+    }
+};
+
+int main() {
+    cout << "--- INICIO DA BATALHA ---\n\n";
+
+    Guerreiro g1("Thor", 100, 20);
+    Mago m1("Gandalf", 60, 25);
+    Assassino a1("Shadow", 80, 30);
+
+    cout << "O guerreiro " << g1.getNome() << " entrou na arena.\n";
+    cout << "O mago " << m1.getNome() << " entrou na arena.\n";
+    cout << "O assassino " << a1.getNome() << " entrou na arena.\n\n";
+
+    while (g1.estaVivo() && m1.estaVivo() && a1.estaVivo()) {
+
+      g1.atacar(m1);
+     if (!m1.estaVivo()) break;
+
+      m1.curar();
+     m1.atacar(a1);
+     if (!a1.estaVivo()) break;
+
+     a1.atacar(g1);
+     if (!g1.estaVivo()) break;
+
+     
+        cout << endl;
+    }
+
+
+    if (!g1.estaVivo()) cout << g1.getNome() << " morreu.\n";
+    if (!m1.estaVivo()) cout << m1.getNome() << " morreu.\n";
+    if (!a1.estaVivo()) cout << a1.getNome() << " morreu.\n";
+
+
+    return 0;
+}
