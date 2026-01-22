@@ -11,8 +11,12 @@ protected:
 public:
     Personagem(string n, int v) : nome(n), vida(v), vidaMaxima(v) {}
 
-    string getNome() const { return nome; }
-    int getVida() const { return vida; }
+    string getNome() const {
+         return nome;
+         }
+    int getVida() const {
+         return vida; 
+        }
 
     bool estaVivo() const {
         return vida > 0;
