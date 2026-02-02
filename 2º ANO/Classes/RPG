@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -25,7 +26,7 @@ public:
 
     void receberDano(int dano) {
         vida -= dano;
-        if (vida < 0){
+        if (vida <= 0){
         cout << nome << " sofreu " << dano << " de dano! Vida restante: " << vida << endl;
         }
     }
@@ -47,8 +48,9 @@ public:
         : Personagem(n, v), forca(f) {}
 
     void atacar(Personagem& alvo) {
+        this->forca;
         cout << nome << " brande a espada com forca "  << forca << "!" << endl;
-        alvo.receberDano(this->forca);
+        alvo.receberDano(forca);
     }
 
     void gritoDeGuerra() {
