@@ -62,7 +62,7 @@ public:
     Mago(string n, int v, int m)
         : Personagem(n, v), magia(m) {}
 
-    void atacar(Personagem& alvo) override {
+    void atacar(Personagem& alvo) {
         cout << nome << " lança uma bola de fogo com poder "
              << magia << "!" << endl;
         alvo.receberDano(magia);
