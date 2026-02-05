@@ -1,0 +1,65 @@
+/*
+#include <iostream>
+using namespace std;
+
+class Rastreador{
+
+    private:
+    int id;
+    static int contador;
+
+    public:
+    Rastreador(){
+        id = ++contador;
+        cout << "Objeto " << id << " nasceu" << endl;
+    }
+
+    ~Rastreador(){
+        cout << "Objeto " << id << " morreu" << endl;
+    }
+
+
+    };
+
+    int Rastreador::contador = 0;
+
+    int main(){
+        {
+            Rastreador obj1;
+            {
+                Rastreador obj2;
+            }
+        }
+    }
+        */
+
+        /*
+#include <iostream>
+using namespace std;
+
+class Som{
+    private:
+    string abertura;
+    string fechar;
+
+    public:
+    Som(){
+            abertura = "Legends";
+            fechar = "Legends";
+        cout << "Abrindo o ficheiro mp3... " << abertura << endl;
+    }
+
+    ~Som(){
+        cout << "Fechando ficheiro " << fechar << " e libertando a placa de som" << endl;
+    }
+};
+
+int main(){
+    {
+        Som som1;
+    }
+
+
+}
+    */
+
