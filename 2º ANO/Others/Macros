@@ -1,0 +1,25 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+#define devolve_produto(x, y) (x*y);
+
+int main(){
+int x, y;
+
+cout << "Digite um numero: ";
+cin >> x;
+cout << "Digite outro numero: ";
+cin >> y;
+
+cout << devolve_produto(x, y);
+int resultado = devolve_produto(x, y);
+cout << resultado;
+
+ofstream arquivo("prdutos.txt");
+if(arquivo.is_open()){
+    arquivo << "O resultado e: " << resultado;
+    arquivo.close();
+
+}
+}
