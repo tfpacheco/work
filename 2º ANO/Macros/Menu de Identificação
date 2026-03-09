@@ -1,0 +1,144 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct Pessoa {
+    string nome;
+    int idade;
+    int cc;
+};
+
+void inserir() {
+    Pessoa p;
+
+    cout << "Insira os seus dados\n";
+
+    cin.ignore();
+
+    cout << "Nome: ";
+    getline(cin, p.nome);
+
+    cout << "Idade: ";
+    cin >> p.idade;
+
+    cout << "Cartao de cidadao: ";
+    cin >> p.cc;
+
+    ofstream file("myDatabase.txt", ios::app);
+
+    if (file) {
+        file << p.nome << endl;
+        file << p.idade << endl;
+        file << p.cc << endl;
+        cout << "Dados guardados com sucesso!\n";
+    }
+    else {
+        cout << "Erro ao abrir o ficheiro.\n";
+    }
+
+    file.close();
+}
+
+void consultar() {
+    int procurarCC;
+    cout << "Introduza o CC a procurar: ";
+    cin >> procurarCC;
+
+    ifstream file("myDatabase.txt");
+
+    if (!file) {
+        cout << "Nao foi possivel abrir o ficheiro.\n";
+        return;
+    }
+
+    Pessoa p;
+    bool encontrado = false;
+
+    while (getline(file, p.nome)) {
+        file >> p.idade;
+        file >> p.cc;
+        file.ignore();
+
+        if (p.cc == procurarCC) {
+            cout << "Pessoa encontrada:\n";
+            cout << "Nome: " << p.nome << endl;
+            cout << "Idade: " << p.idade << endl;
+            cout << "CC: " << p.cc << endl;
+
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado)
+        cout << "Pessoa nao encontrada.\n";
+
+    file.close();
+}
+
+void listar() {
+
+    ifstream file("myDatabase.txt");
+
+    if (!file) {
+        cout << "Nao foi possivel abrir o ficheiro.\n";
+        return;
+    }
+
+    Pessoa p;
+
+    cout << "\nLista de pessoas:\n";
+
+    while (getline(file, p.nome)) {
+        file >> p.idade;
+        file >> p.cc;
+        file.ignore();
+
+        cout << "Nome: " << p.nome
+             << "Idade: " << p.idade
+             << "CC: " << p.cc << endl;
+    }
+
+    file.close();
+}
+
+int main() {
+
+    int opcao;
+
+    do {
+        cout << "\nMenu\n";
+        cout << "1 - Inserir\n";
+        cout << "2 - Consultar\n";
+        cout << "3 - Listar\n";
+        cout << "4 - Sair\n";
+        cout << "Opcao: ";
+
+        cin >> opcao;
+
+        switch (opcao) {
+
+        case 1:
+            inserir();
+            break;
+
+        case 2:
+            consultar();
+            break;
+
+        case 3:
+            listar();
+            break;
+
+        case 4:
+            cout << "Saindo\n";
+            break;
+
+        default:
+            cout << "Opcao invalida.\n";
+        }
+
+    } while (opcao != 4);
+
+}
