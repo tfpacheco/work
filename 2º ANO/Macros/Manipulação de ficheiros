@@ -1,0 +1,34 @@
+//programa que escreve num ficheiro e nos pedido para escrever, e ira para dentro do ficheiro
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;    
+
+int main(){
+
+    ofstream Myfile;
+    fstream read;
+
+    try{
+        Myfile.open("O meu ficheiro.txt");
+        Myfile << "Ola mundo;";
+        Myfile.close();
+        read.open("O meu ficheiro.txt");
+       if(read.is_open()){
+        string ver;
+      while(getline(read, ver)){
+        cout << ver;
+      }
+
+
+       }
+    }
+    catch(exception& e){
+        cout << "Ocorreu um erro: " << e.what() << endl;
+    }
+
+
+
+     return 0;
+}
