@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main(){
+    string clubes[8] = {"Benfica", "Porto", "Sporting", "Bayern", "Juventus", "Real Madrid", "Manchester City", "Arsenal"};
+    string grupo1[4];
+    string grupo2[4];
+    bool usado[8] = {false};
+    int aleatorio;
+srand(time(0));
+for(int i = 0; i < 4; i++){
+    do{
+        aleatorio = rand() % 8;
+    }while(usado[aleatorio]);
+    grupo1[i] = clubes[aleatorio];
+    usado[aleatorio] = true;
+}
+for(int x = 0; x < 4; x++){
+    do{
+        aleatorio = rand() % 8;
+    }while(usado[aleatorio]);
+    grupo2[x] = clubes[aleatorio];
+    usado[aleatorio] = true;
+}
+cout << "Grupo 1: " << endl;
+for(int i = 0; i < 4; i++){
+    cout << grupo1[i] << endl;
+}
+cout << "Grupo 2: " << endl;
+for(int x = 0; x < 4; x++){
+cout << grupo2[x] << endl;
+}
+}
