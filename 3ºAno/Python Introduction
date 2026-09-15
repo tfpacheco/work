@@ -1,1 +1,2 @@
-
+//python3 -m venv myrepo //Description: Create a virtual environment
+//GitIgnore //Description: when doing a git push, commit... the things that are in this file are not seen
