@@ -235,7 +235,7 @@ while ativo:
     elif opcao == '3':
 
         # Pede o código do equipamento
-        id_ = input('Código: ').strip().upper()
+        id_ = input('ID: ').strip().upper()
 
         # Procura o equipamento no dicionário
         equipamento = inventario.get(id_)
@@ -246,7 +246,7 @@ while ativo:
 
         else:
             # Mostra o código
-            print('Código:', id_)
+            print('\nID:', id_)
 
             # Percorre todos os dados do equipamento
             for chave in equipamento:
@@ -255,10 +255,10 @@ while ativo:
 
     # OPÇÃO 4 - ALTERAR ESTADO
     elif opcao == '4':
-
+        
         # Pede o código do equipamento
-        id_ = input('Código: ').strip().upper()
-
+        id_ = input('ID: ').strip().upper()
+       
         # Procura o equipamento
         equipamento = inventario.get(id_)
 
@@ -316,7 +316,7 @@ while ativo:
     elif opcao == '5':
 
         # Pede o código
-        id_ = input('Código: ').strip().upper()
+        id_ = input('ID: ').strip().upper()
 
         # Procura o equipamento
         equipamento = inventario.get(id_)
