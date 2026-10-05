@@ -1,32 +1,22 @@
-
 # Nome: Tomás Pacheco
 # Ano: 12º
 # Data: 1/10/2026
 
 
-# Salas disponíveis no inventário
+
 SALAS = ('LAB1', 'LAB2', 'LAB3')
-
-# Estados possíveis para cada equipamento
 ESTADOS = ('operacional', 'avariado', 'em reparação')
-
-# Tipos de equipamentos aceites
 tipos = ['computador', 'monitor', 'impressora', 'router', 'switch']
 
-
-# Dicionário principal onde são guardados todos os equipamentos
+# Dicionário 
 inventario = {
-
-    # Primeiro equipamento
     'PC01': {
-        'nome': 'computador dell',
+        'nome': 'desktop hp elitedesk',
         'tipo': 'computador',
         'sala': 'LAB1',
-        'quantidade': 10,
+        'quantidade': 12,
         'estado': 'operacional'
     },
-
-    # Segundo equipamento
     'MON01': {
         'nome': 'monitor samsung',
         'tipo': 'monitor',
@@ -34,17 +24,13 @@ inventario = {
         'quantidade': 10,
         'estado': 'operacional'
     },
-
-    # Terceiro equipamento
     'IMP01': {
-        'nome': 'impressora hp',
+        'nome': 'impressora laser brother',
         'tipo': 'impressora',
         'sala': 'LAB2',
         'quantidade': 2,
         'estado': 'avariado'
     },
-
-    # Quarto equipamento
     'RTR01': {
         'nome': 'router cisco',
         'tipo': 'router',
@@ -52,17 +38,13 @@ inventario = {
         'quantidade': 1,
         'estado': 'operacional'
     },
-
-    # Quinto equipamento
     'SWT01': {
-        'nome': 'switch tp-link',
+        'nome': 'switch cisco 24 portas',
         'tipo': 'switch',
         'sala': 'LAB3',
         'quantidade': 2,
         'estado': 'avariado'
     },
-
-    # Sexto equipamento
     'PC02': {
         'nome': 'computador hp',
         'tipo': 'computador',
@@ -72,151 +54,86 @@ inventario = {
     }
 }
 
-
-# Lista onde ficam os códigos dos equipamentos avariados
+# Listas de apoio e histórico
 lista_reparacao = []
-
-# Lista onde ficam os equipamentos que já foram reparados
 reparados = []
-
-# Lista onde ficam guardadas as operações realizadas
 historico = []
 
 
-# Percorre todos os equipamentos existentes
+
 for id_equipamento in inventario:
-
-    # Verifica se o equipamento está avariado
     if inventario[id_equipamento]['estado'] == 'avariado':
-
-        # Se estiver avariado, adiciona o código à lista de reparação
         lista_reparacao.append(id_equipamento)
 
-
-#Menu
+# Construção do menu interativo linha a linha
 menu = ''
-
-menu += '\n1 - Listar Equipamentos\n'
-menu += '2 - Adicionar Equipamentos\n'
-menu += '3 - Procurar Equipamento\n'
-menu += '4 - Alterar estado de um Equipamento\n'
-menu += '5 - Remover Equipamento\n'
-menu += '6 - Lista de Reparações\n'
+menu += '\n1 - Listar equipamentos\n'
+menu += '2 - Adicionar equipamento\n'
+menu += '3 - Pesquisar equipamento\n'
+menu += '4 - Alterar estado de um equipamento\n'
+menu += '5 - Remover equipamento\n'
+menu += '6 - Lista de reparação\n'
 menu += '7 - Estatísticas\n'
 menu += '8 - Histórico de operações\n'
 menu += '0 - Sair\n'
 
-
-# Variável que controla se o programa continua ligado
 ativo = True
 
-# Ciclo principal do programa
 while ativo:
-
-
-    print('\n========= Gestor de Inventário =========')
-
-    # Mostra o menu
+    print('\n========== GESTOR DE INVENTÁRIO ==========')
     print(menu)
+    opcao = input('Escolha uma opção: ').strip()
 
-    # Pede ao utilizador para escolher uma opção
-    opcao = input('Opção: ')
-
-
-    # OPÇÃO 0 - SAIR
+    # OPÇÃO 0: Sair do programa
     if opcao == '0':
-        # Pergunta se o utilizador tem a certeza que quer sair
-        sair = input('Deseja sair? S ou N: ').strip().upper()
-
-        # Se responder S, termina o programa
-        if sair == 'S':
+        sair = input('Deseja sair? (s/n): ').strip().lower()
+        if sair == 's':
             ativo = False
             print('Terminado.')
-
-        # Caso contrário, volta ao menu
         else:
             print('Regresso ao menu.')
 
-
-    # OPÇÃO 1 - LISTAR EQUIPAMENTOS
+    # OPÇÃO 1: Listar equipamentos
     elif opcao == '1':
-
-        # Verifica se o inventário está vazio
         if len(inventario) == 0:
             print('Não existem itens no inventário.')
-
         else:
-            # Mostra os títulos das informações
             print('CÓDIGO | NOME | SALA | QUANTIDADE | ESTADO')
-
-            # Percorre os equipamentos por ordem alfabética do código
             for id_equipamento in sorted(inventario):
-
-                # Guarda os dados do equipamento numa variável
                 equipamento = inventario[id_equipamento]
-
-                # Mostra os dados do equipamento
                 print(
-                    id_equipamento,
-                    '|',
-                    equipamento['nome'].title(),
-                    '|',
-                    equipamento['sala'],
-                    '|',
-                    equipamento['quantidade'],
-                    '|',
-                    equipamento['estado']
+                    f"{id_equipamento} | {equipamento['nome'].title()} | "
+                    f"{equipamento['sala']} | {equipamento['quantidade']} un. | "
+                    f"{equipamento['estado']}"
                 )
+            print(f'\nTotal de registos: {len(inventario)}')
 
-            # Mostra o número total de equipamentos registados
-            print('\nTotal de registos:', len(inventario))
-
-
-    # OPÇÃO 2 - ADICIONAR EQUIPAMENTO
+    # OPÇÃO 2: Adicionar novo equipamento
     elif opcao == '2':
-
-        # Pede o código do novo equipamento
         id_ = input('ID: ').strip().upper()
-
-        # Verifica se o código está vazio ou já existe
         if id_ == '' or id_ in inventario:
             print('ID inválido ou já existente.')
-
         else:
-            # Pede o nome do equipamento
             nome = input('Nome: ').strip()
-
-            # Continua a pedir enquanto o nome estiver vazio
             while nome == '':
                 nome = input('Nome: ').strip()
 
-            # Mostra os tipos disponíveis
-            print('Tipos:', tipos)
-
-            # Pede o tipo do equipamento
+            print(f'Tipos aceites: {tipos}')
             tipo = input('Tipo: ').strip().lower()
-
-            # Continua a pedir enquanto o tipo for inválido
             while tipo not in tipos:
                 print('Tipo inválido.')
                 tipo = input('Tipo: ').strip().lower()
 
-            # Pede a sala
             sala = input('Sala: ').strip().upper()
-
-            # Verifica se a sala é válida
             while sala not in SALAS:
                 print('Sala inválida.')
                 sala = input('Sala: ').strip().upper()
 
-            # Pede a quantidade
             quantidade = int(input('Quantidade: '))
-
-            # A quantidade tem de ser maior que zero
             while quantidade <= 0:
+                print('A quantidade deve ser maior que zero.')
                 quantidade = int(input('Quantidade: '))
 
-            # Cria o novo equipamento dentro do inventário
             inventario[id_] = {
                 'nome': nome,
                 'tipo': tipo,
@@ -225,314 +142,158 @@ while ativo:
                 'estado': 'operacional'
             }
 
-            # Regista a operação no histórico
-            historico.append('Adicionado ' + id_)
+            historico.append(f'Adicionado {id_}')
+            print('Equipamento adicionado com sucesso.')
 
-            print('Adicionado com sucesso.')
-
-
-    # OPÇÃO 3 - PROCURAR EQUIPAMENTO
+    # OPÇÃO 3: Pesquisar equipamento por ID
     elif opcao == '3':
-
-        # Pede o código do equipamento
         id_ = input('ID: ').strip().upper()
-
-        # Procura o equipamento no dicionário
         equipamento = inventario.get(id_)
 
-        # Se não encontrar, mostra uma mensagem
         if equipamento is None:
             print('Equipamento não encontrado.')
-
         else:
-            # Mostra o código
-            print('\nID:', id_)
-
-            # Percorre todos os dados do equipamento
+            print(f'\nID: {id_}')
             for chave in equipamento:
-                print(chave + ':', equipamento[chave])
+                print(f'{chave}: {equipamento[chave]}')
 
-
-    # OPÇÃO 4 - ALTERAR ESTADO
+    # OPÇÃO 4: Alterar o estado de um equipamento
     elif opcao == '4':
-        
-        # Pede o código do equipamento
         id_ = input('ID: ').strip().upper()
-       
-        # Procura o equipamento
         equipamento = inventario.get(id_)
 
         if equipamento is None:
             print('Equipamento não encontrado.')
-
         else:
-            # Mostra o estado atual
-            print('Estado atual:', equipamento['estado'])
-
-            # Mostra os estados possíveis
-            print('Estados possíveis:', ESTADOS)
-
-            # Pede o novo estado
+            print(f"Estado atual: {equipamento['estado']}")
+            print(f'Estados possíveis: {ESTADOS}')
             estado = input('Novo estado: ').strip().lower()
 
-            # Continua a pedir enquanto o estado for inválido
             while estado not in ESTADOS:
                 print('Estado inválido.')
                 estado = input('Novo estado: ').strip().lower()
 
-            # Guarda o estado antigo
             estado_anterior = equipamento['estado']
 
-            # Verifica se o novo estado é igual ao anterior
             if estado == estado_anterior:
                 print('O estado já é esse.')
-
             else:
-                # Altera o estado do equipamento
                 inventario[id_]['estado'] = estado
 
-                # Se ficar avariado, adiciona à lista de reparação
                 if estado == 'avariado':
-
-                    # Evita adicionar o mesmo equipamento duas vezes
                     if id_ not in lista_reparacao:
                         lista_reparacao.append(id_)
-
                 else:
-                    # Se deixar de estar avariado,
-                    # remove-o da lista de reparação
                     while id_ in lista_reparacao:
                         lista_reparacao.remove(id_)
 
-                # Guarda a alteração no histórico
-                historico.append(
-                    'Alterado estado de ' + id_ + ' para ' + estado
-                )
-
+                historico.append(f'Estado de {id_}: {estado_anterior} -> {estado}')
                 print('Estado alterado com sucesso.')
 
-
-    # OPÇÃO 5 - REMOVER EQUIPAMENTO
+    # OPÇÃO 5: Remover equipamento
     elif opcao == '5':
-
-        # Pede o código
         id_ = input('ID: ').strip().upper()
-
-        # Procura o equipamento
         equipamento = inventario.get(id_)
 
         if equipamento is None:
             print('Equipamento não encontrado.')
-
         else:
-            # Mostra o nome do equipamento
-            print('Equipamento:', equipamento['nome'])
+            print(f"Equipamento: {equipamento['nome']}")
+            confirmar = input('Tem a certeza que deseja remover? (s/n): ').strip().lower()
 
-            # Confirma se o utilizador quer remover
-            confirmar = input(
-                'Tem a certeza que deseja remover? S ou N: '
-            ).strip().upper()
-
-            if confirmar == 'S':
-
-                # Remove o equipamento do inventário
+            if confirmar == 's':
                 del inventario[id_]
-
-                # Remove também da lista de reparação, se estiver lá
                 while id_ in lista_reparacao:
                     lista_reparacao.remove(id_)
 
-                # Regista a remoção no histórico
-                historico.append('Removido ' + id_)
-
+                historico.append(f'Removido {id_}')
                 print('Equipamento removido com sucesso.')
-
             else:
                 print('Equipamento não removido.')
 
-
-    # OPÇÃO 6 - LISTA DE REPARAÇÕES
+    # OPÇÃO 6: Gerir lista de reparações
     elif opcao == '6':
-
-        # Verifica se existem equipamentos para reparar
         if len(lista_reparacao) == 0:
             print('Não existem equipamentos em reparação.')
-
         else:
-            print('Equipamentos em reparação:')
-
-            # Número usado para mostrar a lista numerada
+            print('Equipamentos a aguardar reparação (por ordem):')
             numero = 1
-
-            # Percorre os equipamentos da lista de reparação
             for id_equipamento in lista_reparacao:
-
-                # Obtém os dados do equipamento
                 equipamento = inventario[id_equipamento]
-
-                # Mostra os dados
                 print(
-                    numero,
-                    '-',
-                    id_equipamento,
-                    '|',
-                    equipamento['nome'].title(),
-                    '|',
-                    equipamento['sala'],
-                    '|',
-                    equipamento['quantidade'],
-                    '|',
-                    equipamento['estado']
+                    f"{numero}. {id_equipamento} - {equipamento['nome'].title()} "
+                    f"({equipamento['sala']} - {equipamento['quantidade']} un.)"
                 )
-
-                # Passa para o número seguinte
                 numero += 1
 
-            # Pergunta se o utilizador quer concluir todas as reparações
-            processar = input(
-                'Deseja processar todas as reparações? S ou N: '
-            ).strip().upper()
+            processar = input('Processar todas as reparações? (s/n): ').strip().lower()
 
-            if processar == 'S':
-
-                # Continua enquanto existirem equipamentos na lista
+            if processar == 's':
                 while len(lista_reparacao) > 0:
-
-                    # Retira o primeiro equipamento da lista
                     id_ = lista_reparacao.pop(0)
-
-                    # Altera o estado para operacional
                     inventario[id_]['estado'] = 'operacional'
-
-                    # Guarda o código na lista de reparados
                     reparados.append(id_)
-
-                    # Regista a reparação no histórico
-                    historico.append(
-                        'Reparação concluída: ' + id_
-                    )
+                    historico.append(f'Reparação concluída: {id_}')
+                    print(f'A reparar {id_}...')
 
                 print('Todas as reparações foram concluídas.')
+                print(f'Equipamentos reparados nesta sessão: {reparados}')
 
-                # Mostra os equipamentos que foram reparados
-                print('Equipamentos reparados:')
-
-                for id_ in reparados:
-                    print('-', id_)
-
-
-    # OPÇÃO 7 - ESTATÍSTICAS
+    # OPÇÃO 7: Mostrar estatísticas do inventário
     elif opcao == '7':
-
-        # Verifica se existem equipamentos
         if len(inventario) == 0:
             print('Não existem equipamentos no inventário.')
-
         else:
-            # Mostra o número de registos
-            print('Número de registos:', len(inventario))
+            print(f'Número de registos: {len(inventario)}')
 
-            # Cria uma lista com as quantidades
             quantidades = [
                 equipamento['quantidade']
                 for equipamento in inventario.values()
             ]
 
-            # Calcula o total de unidades
-            print('Total de unidades:', sum(quantidades))
+            print(f'Total de unidades: {sum(quantidades)}')
+            print(f'Maior quantidade: {max(quantidades)}')
+            print(f'Menor quantidade: {min(quantidades)}')
 
-            # Mostra a maior quantidade
-            print('Maior quantidade:', max(quantidades))
-
-            # Mostra a menor quantidade
-            print('Menor quantidade:', min(quantidades))
-
-
-            # Cria um conjunto vazio para guardar os tipos existentes
             tipos_existentes = set()
-
-            # Percorre todos os equipamentos
             for id_equipamento in inventario:
-
-                # Adiciona o tipo ao conjunto
                 inventario_tipo = inventario[id_equipamento]['tipo']
                 tipos_existentes.add(inventario_tipo)
 
-            # Ordena os tipos alfabeticamente
             tipos_existentes = sorted(tipos_existentes)
+            print(f'Tipos existentes: {tipos_existentes}')
 
-            print('Tipos existentes:', tipos_existentes)
-
-
-            # Dicionário para contar equipamentos por estado
             estados_contagem = {}
-
-            # Percorre todos os equipamentos
             for id_equipamento in inventario:
-
-                # Obtém o estado do equipamento
                 estado = inventario[id_equipamento]['estado']
-
-                # Se o estado ainda não existir no dicionário,
-                # começa a contagem em 1
                 if estado not in estados_contagem:
                     estados_contagem[estado] = 1
-
-                # Caso já exista, aumenta a contagem
                 else:
                     estados_contagem[estado] += 1
 
-            # Mostra a quantidade de registos por estado
-            print('Registos por estado:', estados_contagem)
+            print(f'Registos por estado: {estados_contagem}')
 
-
-            # Percorre todas as salas
             for sala in SALAS:
-
-                # Começa a contagem das unidades da sala em zero
                 quantidade_sala = 0
-
-                # Percorre todos os equipamentos
                 for id_equipamento in inventario:
-
                     equipamento = inventario[id_equipamento]
-
-                    # Verifica se o equipamento pertence à sala
                     if equipamento['sala'] == sala:
-
-                        # Soma a quantidade existente
                         quantidade_sala += equipamento['quantidade']
 
-                # Mostra o total de unidades nessa sala
-                print(
-                    'Total de unidades em',
-                    sala + ':',
-                    quantidade_sala
-                )
+                print(f'Total de unidades em {sala}: {quantidade_sala}')
 
-
-    # OPÇÃO 8 - HISTÓRICO
+    # OPÇÃO 8: Consultar histórico de operações
     elif opcao == '8':
-
-        # Verifica se existem operações registadas
         if len(historico) == 0:
             print('Não existem operações no histórico.')
-
         else:
             print('Últimas operações:')
-
-            # Guarda apenas as últimas 5 operações
             ultimas = historico[-5:]
-
-            # Mostra cada operação
             for operacao in ultimas:
-                print('-', operacao)
+                print(f'- {operacao}')
 
-            # Mostra o número total de operações realizadas
-            print('Total de operações:', len(historico))
+            print(f'Total de operações: {len(historico)}')
 
-
-    # Se a opção não for nenhuma das anteriores
+    # Validação de opção inválida no menu
     else:
         print('Opção inválida. Tente novamente.')
-
