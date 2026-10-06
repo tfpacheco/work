@@ -1,0 +1,89 @@
+
+# Nome: Tomás Pacheco
+# Ano: 12º
+# Data: 1/10/2026
+
+# Salas disponíveis no inventário
+SALAS = ('LAB1', 'LAB2', 'LAB3')
+
+# Estados possíveis para cada equipamento
+ESTADOS = ('operacional', 'avariado', 'em reparação')
+
+# Tipos de equipamentos aceites
+tipos = ['computador', 'monitor', 'impressora', 'router', 'switch']
+
+# Dicionário principal onde são guardados todos os equipamentos
+inventario = {
+
+    # Primeiro equipamento
+    'PC01': {
+        'nome': 'computador dell',
+        'tipo': 'computador',
+        'sala': 'LAB1',
+        'quantidade': 10,
+        'estado': 'operacional'
+    },
+
+    # Segundo equipamento
+    'MON01': {
+        'nome': 'monitor samsung',
+        'tipo': 'monitor',
+        'sala': 'LAB1',
+        'quantidade': 10,
+        'estado': 'operacional'
+    },
+
+    # Terceiro equipamento
+    'IMP01': {
+        'nome': 'impressora hp',
+        'tipo': 'impressora',
+        'sala': 'LAB2',
+        'quantidade': 2,
+        'estado': 'avariado'
+    },
+
+    # Quarto equipamento
+    'RTR01': {
+        'nome': 'router cisco',
+        'tipo': 'router',
+        'sala': 'LAB2',
+        'quantidade': 1,
+        'estado': 'operacional'
+    },
+
+    # Quinto equipamento
+    'SWT01': {
+        'nome': 'switch tp-link',
+        'tipo': 'switch',
+        'sala': 'LAB3',
+        'quantidade': 2,
+        'estado': 'avariado'
+    },
+
+    # Sexto equipamento
+    'PC02': {
+        'nome': 'computador hp',
+        'tipo': 'computador',
+        'sala': 'LAB3',
+        'quantidade': 8,
+        'estado': 'operacional'
+    }
+}
+
+# Lista onde ficam os códigos dos equipamentos avariados
+lista_reparacao = []
+
+# Lista onde ficam os equipamentos que já foram reparados
+reparados = []
+
+# Lista onde ficam guardadas as operações realizadas
+historico = []
+
+# Percorre todos os equipamentos existentes
+for id_equipamento in inventario:
+
+    # Verifica se o equipamento está avariado
+    if inventario[id_equipamento]['estado'] == 'avariado':
+
+        # Se estiver avariado, adiciona o código à lista de reparação
+        lista_reparacao.append(id_equipamento)
