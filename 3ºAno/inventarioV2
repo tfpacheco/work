@@ -1,3 +1,7 @@
+#Nome: Tomás Pacheco
+#Ano: 12•
+
+
 SALAS = ('LAB1', 'LAB2', 'LAB3')
 
 ESTADOS = ('operacional', 'avariado', 'em reparação')
