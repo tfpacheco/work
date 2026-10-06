@@ -50,11 +50,7 @@ inventario = {
         'tipo': 'computador',
         'sala': 'LAB3',
         'quantidade': 8,
-        'estado': 'operacional'
-    }
-}
-
-# Listas de apoio e histórico
+        
 lista_reparacao = []
 reparados = []
 historico = []
