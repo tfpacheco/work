@@ -1,6 +1,5 @@
-#Nome: Tomás Pacheco
-#Ano: 12•
-
+# Nome: Tomás Pacheco
+# Ano: 12º
 
 SALAS = ('LAB1', 'LAB2', 'LAB3')
 
@@ -9,6 +8,7 @@ ESTADOS = ('operacional', 'avariado', 'em reparação')
 tipos = ['computador', 'monitor', 'impressora', 'router', 'switch']
 
 inventario = {
+
     'PC01': {
         'nome': 'computador dell',
         'tipo': 'computador',
@@ -91,21 +91,27 @@ while ativo:
     opcao = input('Opção: ')
 
     if opcao == '0':
+
         sair = input('Deseja sair? S ou N: ').strip().upper()
 
         if sair == 'S':
+
             ativo = False
+
             print('Terminado.')
 
         else:
+
             print('Regresso ao menu.')
 
     elif opcao == '1':
 
         if len(inventario) == 0:
+
             print('Não existem itens no inventário.')
 
         else:
+
             print('CÓDIGO | NOME | SALA | QUANTIDADE | ESTADO')
 
             for id_equipamento in sorted(inventario):
@@ -131,12 +137,15 @@ while ativo:
         id_ = input('ID: ').strip().upper()
 
         if id_ == '' or id_ in inventario:
+
             print('ID inválido ou já existente.')
 
         else:
+
             nome = input('Nome: ').strip()
 
             while nome == '':
+
                 nome = input('Nome: ').strip()
 
             print('Tipos:', tipos)
@@ -144,26 +153,37 @@ while ativo:
             tipo = input('Tipo: ').strip().lower()
 
             while tipo not in tipos:
+
                 print('Tipo inválido.')
+
                 tipo = input('Tipo: ').strip().lower()
 
             sala = input('Sala: ').strip().upper()
 
             while sala not in SALAS:
+
                 print('Sala inválida.')
+
                 sala = input('Sala: ').strip().upper()
 
             quantidade = int(input('Quantidade: '))
 
             while quantidade <= 0:
+
                 quantidade = int(input('Quantidade: '))
 
             inventario[id_] = {
+
                 'nome': nome,
+
                 'tipo': tipo,
+
                 'sala': sala,
+
                 'quantidade': quantidade,
+
                 'estado': 'operacional'
+
             }
 
             historico.append('Adicionado ' + id_)
@@ -177,12 +197,15 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
+
             print('Equipamento não encontrado.')
 
         else:
+
             print('\nID:', id_)
 
             for chave in equipamento:
+
                 print(chave + ':', equipamento[chave])
 
     elif opcao == '4':
@@ -192,9 +215,11 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
+
             print('Equipamento não encontrado.')
 
         else:
+
             print('Estado atual:', equipamento['estado'])
 
             print('Estados possíveis:', ESTADOS)
@@ -202,24 +227,31 @@ while ativo:
             estado = input('Novo estado: ').strip().lower()
 
             while estado not in ESTADOS:
+
                 print('Estado inválido.')
+
                 estado = input('Novo estado: ').strip().lower()
 
             estado_anterior = equipamento['estado']
 
             if estado == estado_anterior:
+
                 print('O estado já é esse.')
 
             else:
+
                 inventario[id_]['estado'] = estado
 
                 if estado == 'avariado':
 
                     if id_ not in lista_reparacao:
+
                         lista_reparacao.append(id_)
 
                 else:
+
                     while id_ in lista_reparacao:
+
                         lista_reparacao.remove(id_)
 
                 historico.append(
@@ -235,9 +267,11 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
+
             print('Equipamento não encontrado.')
 
         else:
+
             print('Equipamento:', equipamento['nome'])
 
             confirmar = input(
@@ -249,6 +283,7 @@ while ativo:
                 del inventario[id_]
 
                 while id_ in lista_reparacao:
+
                     lista_reparacao.remove(id_)
 
                 historico.append('Removido ' + id_)
@@ -256,14 +291,17 @@ while ativo:
                 print('Equipamento removido com sucesso.')
 
             else:
+
                 print('Equipamento não removido.')
 
     elif opcao == '6':
 
         if len(lista_reparacao) == 0:
+
             print('Não existem equipamentos em reparação.')
 
         else:
+
             print('Equipamentos em reparação:')
 
             numero = 1
@@ -311,14 +349,17 @@ while ativo:
                 print('Equipamentos reparados:')
 
                 for id_ in reparados:
+
                     print('-', id_)
 
     elif opcao == '7':
 
         if len(inventario) == 0:
+
             print('Não existem equipamentos no inventário.')
 
         else:
+
             print('Número de registos:', len(inventario))
 
             quantidades = [
@@ -337,25 +378,24 @@ while ativo:
             for id_equipamento in inventario:
 
                 inventario_tipo = inventario[id_equipamento]['tipo']
+
                 tipos_existentes.add(inventario_tipo)
 
             tipos_existentes = sorted(tipos_existentes)
 
             print('Tipos existentes:', tipos_existentes)
 
-            estados_contagem = {}
+            for estado in ESTADOS:
 
-            for id_equipamento in inventario:
+                contador = 0
 
-                estado = inventario[id_equipamento]['estado']
+                for id_equipamento in inventario:
 
-                if estado not in estados_contagem:
-                    estados_contagem[estado] = 1
+                    if inventario[id_equipamento]['estado'] == estado:
 
-                else:
-                    estados_contagem[estado] += 1
+                        contador += 1
 
-            print('Registos por estado:', estados_contagem)
+                print(estado, ':', contador)
 
             for sala in SALAS:
 
@@ -378,17 +418,21 @@ while ativo:
     elif opcao == '8':
 
         if len(historico) == 0:
+
             print('Não existem operações no histórico.')
 
         else:
+
             print('Últimas operações:')
 
             ultimas = historico[-5:]
 
             for operacao in ultimas:
+
                 print('-', operacao)
 
             print('Total de operações:', len(historico))
 
     else:
+
         print('Opção inválida. Tente novamente.')
