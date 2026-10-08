@@ -7,8 +7,8 @@ ESTADOS = ('operacional', 'avariado', 'em reparação')
 
 tipos = ['computador', 'monitor', 'impressora', 'router', 'switch']
 
-inventario = {
 
+inventario = {
     'PC01': {
         'nome': 'computador dell',
         'tipo': 'computador',
@@ -16,7 +16,6 @@ inventario = {
         'quantidade': 10,
         'estado': 'operacional'
     },
-
     'MON01': {
         'nome': 'monitor samsung',
         'tipo': 'monitor',
@@ -24,7 +23,6 @@ inventario = {
         'quantidade': 10,
         'estado': 'operacional'
     },
-
     'IMP01': {
         'nome': 'impressora hp',
         'tipo': 'impressora',
@@ -32,7 +30,6 @@ inventario = {
         'quantidade': 2,
         'estado': 'avariado'
     },
-
     'RTR01': {
         'nome': 'router cisco',
         'tipo': 'router',
@@ -40,7 +37,6 @@ inventario = {
         'quantidade': 1,
         'estado': 'operacional'
     },
-
     'SWT01': {
         'nome': 'switch tp-link',
         'tipo': 'switch',
@@ -48,7 +44,6 @@ inventario = {
         'quantidade': 2,
         'estado': 'avariado'
     },
-
     'PC02': {
         'nome': 'computador hp',
         'tipo': 'computador',
@@ -58,18 +53,18 @@ inventario = {
     }
 }
 
+
 lista_reparacao = []
-
 reparados = []
-
 historico = []
+
 
 for id_equipamento in inventario:
     if inventario[id_equipamento]['estado'] == 'avariado':
         lista_reparacao.append(id_equipamento)
 
-menu = ''
 
+menu = ''
 menu += '\n1 - Listar Equipamentos\n'
 menu += '2 - Adicionar Equipamentos\n'
 menu += '3 - Procurar Equipamento\n'
@@ -80,12 +75,12 @@ menu += '7 - Estatísticas\n'
 menu += '8 - Histórico de operações\n'
 menu += '0 - Sair\n'
 
+
 ativo = True
 
 while ativo:
 
     print('\n========= Gestor de Inventário =========')
-
     print(menu)
 
     opcao = input('Opção: ')
@@ -95,23 +90,17 @@ while ativo:
         sair = input('Deseja sair? S ou N: ').strip().upper()
 
         if sair == 'S':
-
             ativo = False
-
             print('Terminado.')
-
         else:
-
             print('Regresso ao menu.')
 
     elif opcao == '1':
 
         if len(inventario) == 0:
-
             print('Não existem itens no inventário.')
 
         else:
-
             print('CÓDIGO | NOME | SALA | QUANTIDADE | ESTADO')
 
             for id_equipamento in sorted(inventario):
@@ -119,14 +108,10 @@ while ativo:
                 equipamento = inventario[id_equipamento]
 
                 print(
-                    id_equipamento,
-                    '|',
-                    equipamento['nome'].title(),
-                    '|',
-                    equipamento['sala'],
-                    '|',
-                    equipamento['quantidade'],
-                    '|',
+                    id_equipamento, '|',
+                    equipamento['nome'].title(), '|',
+                    equipamento['sala'], '|',
+                    equipamento['quantidade'], '|',
                     equipamento['estado']
                 )
 
@@ -137,15 +122,12 @@ while ativo:
         id_ = input('ID: ').strip().upper()
 
         if id_ == '' or id_ in inventario:
-
             print('ID inválido ou já existente.')
 
         else:
-
             nome = input('Nome: ').strip()
 
             while nome == '':
-
                 nome = input('Nome: ').strip()
 
             print('Tipos:', tipos)
@@ -153,37 +135,26 @@ while ativo:
             tipo = input('Tipo: ').strip().lower()
 
             while tipo not in tipos:
-
                 print('Tipo inválido.')
-
                 tipo = input('Tipo: ').strip().lower()
 
             sala = input('Sala: ').strip().upper()
 
             while sala not in SALAS:
-
                 print('Sala inválida.')
-
                 sala = input('Sala: ').strip().upper()
 
             quantidade = int(input('Quantidade: '))
 
             while quantidade <= 0:
-
                 quantidade = int(input('Quantidade: '))
 
             inventario[id_] = {
-
                 'nome': nome,
-
                 'tipo': tipo,
-
                 'sala': sala,
-
                 'quantidade': quantidade,
-
                 'estado': 'operacional'
-
             }
 
             historico.append('Adicionado ' + id_)
@@ -197,15 +168,12 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
-
             print('Equipamento não encontrado.')
 
         else:
-
             print('\nID:', id_)
 
             for chave in equipamento:
-
                 print(chave + ':', equipamento[chave])
 
     elif opcao == '4':
@@ -215,43 +183,34 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
-
             print('Equipamento não encontrado.')
 
         else:
-
             print('Estado atual:', equipamento['estado'])
-
             print('Estados possíveis:', ESTADOS)
 
             estado = input('Novo estado: ').strip().lower()
 
             while estado not in ESTADOS:
-
                 print('Estado inválido.')
-
                 estado = input('Novo estado: ').strip().lower()
 
             estado_anterior = equipamento['estado']
 
             if estado == estado_anterior:
-
                 print('O estado já é esse.')
 
             else:
-
                 inventario[id_]['estado'] = estado
 
                 if estado == 'avariado':
 
                     if id_ not in lista_reparacao:
-
                         lista_reparacao.append(id_)
 
                 else:
 
                     while id_ in lista_reparacao:
-
                         lista_reparacao.remove(id_)
 
                 historico.append(
@@ -267,11 +226,9 @@ while ativo:
         equipamento = inventario.get(id_)
 
         if equipamento is None:
-
             print('Equipamento não encontrado.')
 
         else:
-
             print('Equipamento:', equipamento['nome'])
 
             confirmar = input(
@@ -283,7 +240,6 @@ while ativo:
                 del inventario[id_]
 
                 while id_ in lista_reparacao:
-
                     lista_reparacao.remove(id_)
 
                 historico.append('Removido ' + id_)
@@ -291,17 +247,14 @@ while ativo:
                 print('Equipamento removido com sucesso.')
 
             else:
-
                 print('Equipamento não removido.')
 
     elif opcao == '6':
 
         if len(lista_reparacao) == 0:
-
             print('Não existem equipamentos em reparação.')
 
         else:
-
             print('Equipamentos em reparação:')
 
             numero = 1
@@ -311,16 +264,11 @@ while ativo:
                 equipamento = inventario[id_equipamento]
 
                 print(
-                    numero,
-                    '-',
-                    id_equipamento,
-                    '|',
-                    equipamento['nome'].title(),
-                    '|',
-                    equipamento['sala'],
-                    '|',
-                    equipamento['quantidade'],
-                    '|',
+                    numero, '-',
+                    id_equipamento, '|',
+                    equipamento['nome'].title(), '|',
+                    equipamento['sala'], '|',
+                    equipamento['quantidade'], '|',
                     equipamento['estado']
                 )
 
@@ -340,22 +288,18 @@ while ativo:
 
                     reparados.append(id_)
 
-                    historico.append(
-                        'Reparação concluída: ' + id_
-                    )
+                    historico.append('Reparação concluída: ' + id_)
 
                 print('Todas as reparações foram concluídas.')
 
                 print('Equipamentos reparados:')
 
                 for id_ in reparados:
-
                     print('-', id_)
 
     elif opcao == '7':
 
         if len(inventario) == 0:
-
             print('Não existem equipamentos no inventário.')
 
         else:
@@ -368,20 +312,19 @@ while ativo:
             ]
 
             print('Total de unidades:', sum(quantidades))
-
             print('Maior quantidade:', max(quantidades))
-
             print('Menor quantidade:', min(quantidades))
 
-            tipos_existentes = set()
+            tipos_existentes = []
 
             for id_equipamento in inventario:
 
                 inventario_tipo = inventario[id_equipamento]['tipo']
 
-                tipos_existentes.add(inventario_tipo)
+                if inventario_tipo not in tipos_existentes:
+                    tipos_existentes.append(inventario_tipo)
 
-            tipos_existentes = sorted(tipos_existentes)
+            tipos_existentes.sort()
 
             print('Tipos existentes:', tipos_existentes)
 
@@ -392,7 +335,6 @@ while ativo:
                 for id_equipamento in inventario:
 
                     if inventario[id_equipamento]['estado'] == estado:
-
                         contador += 1
 
                 print(estado, ':', contador)
@@ -406,19 +348,14 @@ while ativo:
                     equipamento = inventario[id_equipamento]
 
                     if equipamento['sala'] == sala:
-
                         quantidade_sala += equipamento['quantidade']
 
-                print(
-                    'Total de unidades em',
-                    sala + ':',
-                    quantidade_sala
-                )
+                print('Total de unidades em', sala + ':', quantidade_sala)
+
 
     elif opcao == '8':
 
         if len(historico) == 0:
-
             print('Não existem operações no histórico.')
 
         else:
@@ -428,11 +365,9 @@ while ativo:
             ultimas = historico[-5:]
 
             for operacao in ultimas:
-
                 print('-', operacao)
 
             print('Total de operações:', len(historico))
 
     else:
-
         print('Opção inválida. Tente novamente.')
