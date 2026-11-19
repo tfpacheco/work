@@ -11,9 +11,12 @@ class Bird(Sprite):
 
       
         self.image = pygame.image.load('images/bird.png')
+        self.image = pygame.transform.scale(self.image, (150, 100))  # (largura, altura)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
+
+    
         
         self.x = float(self.rect.x)
        
