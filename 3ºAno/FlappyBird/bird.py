@@ -1,70 +1,40 @@
-import sys
 import pygame
-from settings import Settings
-from bird import Bird
+from pygame.sprite import Sprite
 
 
-class PassaroVoador:
+class Bird(Sprite):
+    def __init__(self, pv_game):
+        super().__init__()
+        self.screen = pv_game.screen
+        self.screen_rect = self.screen.get_rect()
+        self.settings = pv_game.settings
 
-    def __init__(self):
-        pygame.init()
+        self.image = pygame.image.load('images/bird.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (150, 100))
+        self.rect = self.image.get_rect()
+        self.rect.x = 20
+        self.rect.centery = self.screen_rect.centery
 
-        self.settings = Settings()
-        pygame.display.set_caption("Passaro Voador")
-        self.fonte = pygame.font.SysFont(None, 36)
-        self.relogio = pygame.time.Clock()
-        self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height))
-        
-        
-        background = pygame.image.load(self.settings.screen_background_img).convert()
-        bg_w, bg_h = background.get_size()
-        scale = self.settings.screen_height / bg_h
-        new_w = max(int(bg_w * scale), self.settings.screen_width)
-        self.background = pygame.transform.smoothscale(background, (new_w, self.settings.screen_height))
-     
-        pygame.display.flip()
-        self.bird = Bird(self)
+        self.y = float(self.rect.y)
+        self.velocity = 0.0
 
-    def run_game(self):
-        """Inicializa o loop principal do jogo"""
-        while True:
-            self._check_events()
-            self.bird.update()
-            self._update_screen()
-            self.relogio.tick(60)
+    def fly(self):
+        self.velocity = -self.settings.bird_jump
 
-    def _check_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                self._keydown_events(event)
-            elif event.type == pygame.KEYUP:
-                self._keyup_events(event)
-
-    def _keydown_events(self, event):
-        if event.key == pygame.K_UP:
-            self.bird.moving_up = True
-        elif event.key == pygame.K_DOWN:
-            self.bird.moving_down = True
-        elif event.key == pygame.K_q:
-            sys.exit()
-
-    def _keyup_events(self, event):
-        if event.key == pygame.K_UP:
-            self.bird.moving_up = False
-        elif event.key == pygame.K_DOWN:
-            self.bird.moving_down = False
-
-    def _update_screen(self):
-        self.screen.blit(self.background, (0, 0))
-        self.bird.blitme()
-        pygame.display.flip()
+    def update(self):
+        self.velocity += self.settings.gravity
+        self.y += self.velocity
 
 
+        if self.y < 0:
+            self.y = 0
+            self.velocity = 0
+        max_y = self.screen_rect.bottom - self.rect.height
+        if self.y > max_y:
+            self.y = max_y
+            self.velocity = 0
 
-if __name__ == '__main__':
-    pv = PassaroVoador()
-    pv.run_game()
+        self.rect.y = self.y
+
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
