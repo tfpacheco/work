@@ -25,7 +25,6 @@ class Bird(Sprite):
         self.velocity += self.settings.gravity
         self.y += self.velocity
 
-
         if self.y < 0:
             self.y = 0
             self.velocity = 0
